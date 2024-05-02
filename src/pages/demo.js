@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Checkbox, Table, Button, Modal, TextInput } from 'flowbite-react';
+import { Checkbox, Table, Button, Modal, TextInput, Label } from 'flowbite-react';
 import toast, { Toaster } from 'react-hot-toast';
 import config from './config';
 
@@ -26,14 +26,16 @@ function App() {
   // Estado para actualizar la tabla
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
+  //Toast notifica que el registro fué actualizado con éxito
   const notify = () => toast.success('Información actualizada con éxito.');
+
   //Consumo de la API
   const getAllSoftware = async () => {
     try {
       const response = await axios.get(`${config.endpoint}/Softwares?apiKey=${config.apiKey}`);
       setSoftware(response.data);
     } catch (error) {
-      console.error('Error al obtener el software:', error);
+      console.error('Error al obtener los registros:', error);
     }
   };
 
@@ -44,10 +46,9 @@ function App() {
       setUpdateSuccess(true);
       notify()
     } catch (error) {
-      console.error('Error al actualizar el software:', error);
+      console.error('Error al actualizar el regisro:', error);
     }
   };
-
 
   //Hook para realizar las request al iniciar la aplicación y actulizar la tabla
   useEffect(() => {
@@ -59,6 +60,7 @@ function App() {
   const onCloseModal = () => {
     setOpenModal(false);
     setEditSoftware({
+      ...editSoftware,
       idSoftware: '',
       nombreSoftware: '',
       descripcionSoftware: '',
@@ -74,7 +76,9 @@ function App() {
         position="top-right"
         reverseOrder={false}
       />
-      <div className="overflow-x-auto my-10 mx-40">
+
+      <div className="overflow-x-auto sm:my-10 sm:mx-40 my-3 mx-1">
+
         <Table hoverable>
           <Table.Head>
             <Table.HeadCell className="p-4">
@@ -116,28 +120,27 @@ function App() {
       </div>
       {/* El código del modal para editar la data está acá */}
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
-        <Modal.Header className='p-8'>Software</Modal.Header>
+        <Modal.Header className='p-6'>Software</Modal.Header>
         <Modal.Body>
-          <div className="space-y-6">
-
+          <div className="mt-3">
+            <Label htmlFor="software" value="Software" />
             <TextInput
+              className='mb-3'
               id='software'
-              variant="outlined"
-              label="Software"
               value={editSoftware.nombreSoftware || ""}
               onChange={(e) => setEditSoftware({ ...editSoftware, nombreSoftware: e.target.value })}
             />
+            <Label htmlFor="descripcionSoftware" value="Descripción" />
             <TextInput
+              className='mb-3'
               id='descripcionSoftware'
-              variant="outlined"
-              label="Descripción"
               value={editSoftware.descripcionSoftware || ""}
               onChange={(e) => setEditSoftware({ ...editSoftware, descripcionSoftware: e.target.value })}
             />
+            <Label htmlFor="versionSoftware" value="Versión" />
             <TextInput
+              className='mb-3'
               id='versionSoftware'
-              variant="outlined"
-              label="Versión"
               value={editSoftware.versionSoftware || ""}
               onChange={(e) => setEditSoftware({ ...editSoftware, versionSoftware: e.target.value })}
             />
