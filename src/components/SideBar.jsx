@@ -3,11 +3,15 @@ import SidebarLogo from '../images/ingreso-personal.png';
 import { TiThMenu } from 'react-icons/ti';
 import { AiOutlineUser } from 'react-icons/ai';
 import { IoMdMore, IoIosClose } from 'react-icons/io';
+import { Dropdown } from 'flowbite-react';
+import { useAuth } from '../auth/AuthProvider';
 
 const SideBarContext = createContext();
 
 const SideBar = ({ children }) => {
   const [expanded, setExpanded] = useState(true);
+  const auth = useAuth();
+
   return (
     <aside className='h-screen'>
       <nav className='h-full inline-flex flex-col bg-white shadow-sm'>
@@ -39,10 +43,12 @@ const SideBar = ({ children }) => {
               <h4 className='font-semibold text-blue-950'>Usuario</h4>
               <span className='text-xs text-blue-950'>email@im.com.sv</span>
             </div>
-            
-            <button>
-              <IoMdMore size={20} />
-            </button>
+
+            <Dropdown placement="right-start" dismissOnClick={false} renderTrigger={() => <span><IoMdMore size={20} /></span>}>
+              <Dropdown.Item onClick={() => auth.logout()}>
+                Log out
+              </Dropdown.Item>
+            </Dropdown>
 
           </div>
         </div>
