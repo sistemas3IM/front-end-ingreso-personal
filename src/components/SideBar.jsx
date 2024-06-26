@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import SidebarLogo from '../images/ingreso-personal.png';
 import { TiThMenu } from 'react-icons/ti';
 import { AiOutlineUser } from 'react-icons/ai';
@@ -10,6 +10,14 @@ const SideBarContext = createContext();
 
 const SideBar = ({ children }) => {
   const [expanded, setExpanded] = useState(true);
+  const [user, setUser] = useState('');
+
+
+
+  useEffect(() =>{
+    setUser(localStorage.getItem('user'));
+  },[]);  
+
   const auth = useAuth();
 
   return (
@@ -40,12 +48,12 @@ const SideBar = ({ children }) => {
             overflow-hidden transition-all duration-300 ${expanded ? 'w-52 ml-3' : 'w-0 hidden'}
           `}>
             <div className='leading-4'>
-              <h4 className='font-semibold text-blue-950'>Usuario</h4>
+              <h4 className='font-semibold text-blue-950'>{user}</h4>
               <span className='text-xs text-blue-950'>email@im.com.sv</span>
             </div>
 
-            <Dropdown placement="right-start" dismissOnClick={false} renderTrigger={() => <span><IoMdMore size={20} /></span>}>
-              <Dropdown.Item onClick={() => auth.logout()}>
+            <Dropdown placement="right-start" dismissOnClick={false} renderTrigger={() => <span><IoMdMore size={20} className='cursor-pointer' /></span>}>
+              <Dropdown.Item onClick={() => auth.logout(user)}>
                 Log out
               </Dropdown.Item>
             </Dropdown>

@@ -48,7 +48,7 @@ const Login = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-neutral-200">
+        <div className="flex justify-center items-center h-screen bg-neutral-300">
             <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <img src={SidebarLogo} alt="Logo" />
                 <form className='form' onSubmit={handleSubmit}>

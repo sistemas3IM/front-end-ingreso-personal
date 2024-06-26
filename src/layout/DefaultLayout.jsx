@@ -4,6 +4,7 @@ import { MdDashboard, MdDevices } from 'react-icons/md';
 import { SiGoogleforms } from 'react-icons/si';
 import { TbReportSearch } from 'react-icons/tb';
 import Badge from 'flowbite-react'
+import PBanner from '../components/Banner';
 
 const DefaultLayout = () => {
 
@@ -19,6 +20,7 @@ const DefaultLayout = () => {
             </SideBar>
             <div className='flex-1 bg-neutral-300'>
                 <div className='mt-5 px-3'>
+                    <PBanner />
                     <Outlet />
                 </div>
             </div>

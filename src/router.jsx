@@ -1,12 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom';
 import ProtectedRoute from './pages/ProtectedRoute';
-import Login from './pages/Login';
+import Loginp from './pages/Loginp';
 import DefaultLayout from './layout/DefaultLayout';
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Login />
+        element: <Loginp />
     },
     {
         path: "/",
